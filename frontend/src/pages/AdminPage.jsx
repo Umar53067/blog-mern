@@ -11,7 +11,8 @@ function AdminPage() {
   // Fetch all users
   const fetchUsers = async () => {
     try {
-      const res = await axios.get('/api/users');
+      const res = await axios.get('http://localhost:5000/users');
+      console.log(res.data)
       setUsers(res.data);
     } catch (err) {
       console.error('Error fetching users:', err);
@@ -24,7 +25,7 @@ function AdminPage() {
 
     // For fetching users from backend 
 
-    //    fetchUsers();
+      //  fetchUsers();
   }, []);
 
   // Handle adding a user

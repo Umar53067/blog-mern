@@ -69,6 +69,21 @@ const authMiddleware = (req, res, next) => {
 // Auth Routes
 // ---------------------
 
+//Admin routes
+
+app.get('/users', async (req,res)=>{
+    console.log("Route hit")
+  try {
+    const response = await User.find()
+    console.log(response);
+    res.json({response})
+    
+  } catch (error) {
+    
+  }
+})
+
+
 // Sign up route
 app.post('/signup', async (req, res) => {
   const { username, email, password } = req.body;

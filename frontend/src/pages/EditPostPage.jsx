@@ -15,17 +15,17 @@ function EditPostPage() {
   const navigate = useNavigate();
 
   const token = useSelector((state)=>state.auth.token)
-  console.log(token);
-  
+  if(!token){
+    navigate('/')
+  }
 
   useEffect(() => {
     const fetchPost = async () => {
       try {
         const res = await axios.get(`http://localhost:5000/blog/${id}`);
-        console.log(res.data)
-        setFormData(res.data); // Populate form with current post data
+        setFormData(res.data); 
       } catch (err) {
-        setError('Failed to fetch post. Please try again.');
+        setError('Failed to fetch post. Please try again.',err);
       }
     };
     
@@ -59,6 +59,7 @@ function EditPostPage() {
           Authorization: `Bearer ${token}`
         }
       });
+      console.log(res)
       setSuccess('Post updated successfully!');
       setTimeout(() => navigate('/'), 2000); // Redirect to home page after 2 seconds
     } catch (err) {
