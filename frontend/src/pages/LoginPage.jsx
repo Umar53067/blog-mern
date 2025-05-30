@@ -34,7 +34,12 @@ function LoginPage() {
       if(res.data.message == 'Login successful'){
         dispatch(loginSuccess(res.data))
         console.log(res.data)
-        navigate('/')
+        if(res.data.user.username == 'admin'){
+          navigate('/admin')
+        }else{
+          navigate('/')
+        }
+        
       }
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed. Please try again.');

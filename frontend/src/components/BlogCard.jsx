@@ -4,7 +4,7 @@ function BlogCard({ blog }) {
   return (
     <div className="bg-white rounded-lg shadow-lg overflow-hidden">
       <img
-        src={`/${blog.image}`}
+        src={`http://localhost:5000/${blog.image}`}
         //src={`/${blog.image}`}
         alt={blog.title}
         className="w-full h-56 object-cover"

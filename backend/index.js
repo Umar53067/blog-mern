@@ -9,7 +9,7 @@ import connectDB from './db/db.js';
 import multer from 'multer';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { Blog } from './models/blog.models.js'; // Ensure Blog model is correctly defined
+import { Blog } from './models/blog.models.js'; 
 import {User} from './models/user.models.js';
 
 // Configurations
@@ -32,38 +32,11 @@ app.use('/images', express.static('public/images'));
 // ---------------------
 // Multer Setup for Image Upload
 // ---------------------
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'public/images');
-  },
-  filename: (req, file, cb) => {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
-  }
-});
-
-const upload = multer({ storage });
-
+import upload from './middlewares/upload.middleware.js';
 // ---------------------
 // JWT Middleware to Protect Routes
 // ---------------------
-const authMiddleware = (req, res, next) => {
-  const authHeader = req.headers.authorization;
-
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    return res.status(401).json({ message: 'No token provided' });
-  }
-
-  const token = authHeader.split(' ')[1];
-
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded; // Contains { id: user._id }
-    next();
-  } catch (err) {
-    res.status(401).json({ message: 'Invalid token' });
-  }
-};
+import authMiddleware from './middlewares/auth.middleware.js';
 
 // ---------------------
 // Auth Routes
@@ -79,9 +52,22 @@ app.get('/users', async (req,res)=>{
     res.json({response})
     
   } catch (error) {
-    
+    res.json({message : err})
   }
 })
+//Admin route to delete user
+app.delete('/user/:id', async (req, res)=>{
+    const {id} = req.params  
+  try {
+    const res = await User.findByIdAndDelete(id);
+    console.log(res);
+    res.json({res})
+      
+    } catch (error) {
+      
+    }
+})
+
 
 
 // Sign up route
@@ -174,7 +160,7 @@ app.post('/posts', authMiddleware, upload.single('image'), async (req, res) => {
   try {
     const { title, content } = req.body;
     const image = req.file ? `images/${req.file.filename}` : null;
-
+    console.log(image)
 
     const newBlogPost = new Blog({
       title,

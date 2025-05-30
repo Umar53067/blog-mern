@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 function AdminPage() {
   const [users, setUsers] = useState([]);
@@ -8,12 +9,15 @@ function AdminPage() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
+  const admin = useSelector((state) => state.auth.user?.username);
+  console.log(admin)
+
   // Fetch all users
   const fetchUsers = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/users');
-      console.log(res.data)
-      setUsers(res.data);
+      const res = await axios.get('http://localhost:5000/users'); // Ensure your backend proxy or baseURL is set up
+      console.log("Upcoming data checking",res.data.response)
+      setUsers(res.data.response);
     } catch (err) {
       console.error('Error fetching users:', err);
     } finally {
@@ -22,10 +26,7 @@ function AdminPage() {
   };
 
   useEffect(() => {
-
-    // For fetching users from backend 
-
-      //  fetchUsers();
+    fetchUsers();
   }, []);
 
   // Handle adding a user
@@ -34,7 +35,7 @@ function AdminPage() {
     setError('');
     setSuccess('');
     try {
-      await axios.post('/api/users', newUser);
+      await axios.post('http://localhost:5000/signup', newUser);
       setSuccess('User added successfully');
       setNewUser({ username: '', email: '', password: '' });
       fetchUsers();
@@ -46,12 +47,20 @@ function AdminPage() {
   // Handle deleting a user
   const handleDelete = async (userId) => {
     try {
-      await axios.delete(`/api/users/${userId}`);
+      await axios.delete(`http://localhost:5000/user/${userId}`);
       fetchUsers();
     } catch (err) {
       console.error('Delete failed:', err);
     }
   };
+
+  if (admin !== 'admin') {
+    return (
+      <div className="flex items-center justify-center h-screen bg-gray-100">
+        <h1 className="text-xl text-gray-700">🔐 Please login to access the admin dashboard.</h1>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
