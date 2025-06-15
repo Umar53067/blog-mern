@@ -1,8 +1,7 @@
 import './App.css';
-import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import HomePage from './pages/HomePage';
+import HomePage from './pages/Homepage';
 import NotFoundPage from './pages/NotFoundPage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import BlogCard from '../components/BlogCard.jsx';
 
-function Homepage() {
+function HomePage() {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -44,4 +44,4 @@ function Homepage() {
   );
 }
 
-export default Homepage;
+export default HomePage;
