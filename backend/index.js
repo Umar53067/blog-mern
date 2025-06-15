@@ -11,7 +11,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { Blog } from './models/blog.models.js'; 
 import {User} from './models/user.models.js';
-
+import morgan from 'morgan'
 // Configurations
 dotenv.config();
 const app = express();
@@ -23,6 +23,7 @@ connectDB();
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use(morgan('dev'));
 
 // Static folder for serving uploaded images
 app.use('/images', express.static('public/images'));

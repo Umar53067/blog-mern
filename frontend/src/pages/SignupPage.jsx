@@ -22,7 +22,7 @@ function SignupPage() {
     setSuccess('');
 
     try {
-      const res = await axios.post('http://localhost:5000/signup', formData);
+      const res = await axios.post('http://localhost:5000/api/auth/signup', formData);
       setSuccess('Signup successful! You can now log in.');
       setFormData({ username: '', email: '', password: '' });
     } catch (err) {

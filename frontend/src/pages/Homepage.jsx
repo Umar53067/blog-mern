@@ -10,9 +10,9 @@ function Homepage() {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/posts'); // Assume this endpoint fetches all blogs
-        console.log(res.data.data)
-        setBlogs(res.data.data);
+        const res = await axios.get('http://localhost:5000/api/blogs'); // Assume this endpoint fetches all blogs
+        console.log(res.data)
+        setBlogs(res.data);
       } catch (err) {
         console.error('Error fetching blogs:', err);
       } finally {

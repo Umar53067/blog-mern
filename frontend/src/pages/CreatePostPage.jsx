@@ -39,7 +39,7 @@ function CreatePostPage() {
     }
 
     try {
-      const res = await axios.post('http://localhost:5000/posts', form, {
+      const res = await axios.post('http://localhost:5000/api/blogs', form, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`

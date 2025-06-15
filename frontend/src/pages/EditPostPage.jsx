@@ -22,7 +22,7 @@ function EditPostPage() {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/blog/${id}`);
+        const res = await axios.get(`http://localhost:5000/api/blogs/${id}`);
         setFormData(res.data); 
       } catch (err) {
         setError('Failed to fetch post. Please try again.',err);
@@ -53,7 +53,7 @@ function EditPostPage() {
     }
 
     try {
-      const res = await axios.put(`http://localhost:5000/blog/${id}`, updatedForm, {
+      const res = await axios.put(`http://localhost:5000/api/blogs/${id}`, updatedForm, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`

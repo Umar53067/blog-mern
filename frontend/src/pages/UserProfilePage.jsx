@@ -14,10 +14,10 @@ function UserProfilePage() {
     const fetchProfileData = async () => {
       try {
         // Fetch user data
-        const userRes = await axios.get(`http://localhost:5000/profile/${id}`);
+        const userRes = await axios.get(`http://localhost:5000/api/users/profile/${id}`);
         console.log(userRes)
         // Fetch blogs for the user
-        const blogsRes = await axios.get(`http://localhost:5000/blogs?userId=${id}`);
+        const blogsRes = await axios.get(`http://localhost:5000/api/blogs?userId=${id}`);
 
         setUser(userRes.data);
         setBlogs(blogsRes.data);
@@ -70,7 +70,7 @@ function UserProfilePage() {
                 <div key={blog._id} className="bg-white rounded-lg shadow-md overflow-hidden">
                   {blog.image && (
                     <img
-                      src={`/${blog.image}`}
+                      src={`http://localhost:5000/${blog.image}`}
                       alt={blog.title}
                       className="h-48 w-full object-cover"
                     />

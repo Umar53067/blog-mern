@@ -1,3 +1,4 @@
+import CommentSection from "../components/CommentSection";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -17,7 +18,7 @@ function SingleBlogPage() {
   useEffect(() => {
     const fetchBlog = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/blog/${id}`);
+        const res = await axios.get(`http://localhost:5000/api/blogs/${id}`);
         console.log(res.data);
         
         setBlog(res.data);
@@ -36,7 +37,7 @@ function SingleBlogPage() {
     if (!confirm) return;
 
     try {
-      await axios.delete(`http://localhost:5000/posts/${id}`, {
+      await axios.delete(`http://localhost:5000/api/blogs/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -69,8 +70,8 @@ function SingleBlogPage() {
   console.log("checking", isAuthor)
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      <div className="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6">
+    <div className="min-h-screen bg-gray-50 w-full">
+      <div className="w-full  bg-white  p-6">
         {blog.image && (
           <img
             src={`http://localhost:5000/${blog.image}`}
@@ -101,6 +102,7 @@ function SingleBlogPage() {
             </button>
           </div>
         )}
+      <CommentSection blogId={blog._id} />
       </div>
     </div>
   );

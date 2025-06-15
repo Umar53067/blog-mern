@@ -15,9 +15,9 @@ function AdminPage() {
   // Fetch all users
   const fetchUsers = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/users'); // Ensure your backend proxy or baseURL is set up
-      console.log("Upcoming data checking",res.data.response)
-      setUsers(res.data.response);
+      const res = await axios.get('http://localhost:5000/api/users'); // Ensure your backend proxy or baseURL is set up
+      console.log("Upcoming data checking",res.data)
+      setUsers(res.data);
     } catch (err) {
       console.error('Error fetching users:', err);
     } finally {
@@ -35,7 +35,7 @@ function AdminPage() {
     setError('');
     setSuccess('');
     try {
-      await axios.post('http://localhost:5000/signup', newUser);
+      await axios.post('http://localhost:5000/api/auth/signup', newUser);
       setSuccess('User added successfully');
       setNewUser({ username: '', email: '', password: '' });
       fetchUsers();
@@ -47,7 +47,7 @@ function AdminPage() {
   // Handle deleting a user
   const handleDelete = async (userId) => {
     try {
-      await axios.delete(`http://localhost:5000/user/${userId}`);
+      await axios.delete(`http://localhost:5000/api/users/${userId}`);
       fetchUsers();
     } catch (err) {
       console.error('Delete failed:', err);
