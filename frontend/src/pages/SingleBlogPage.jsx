@@ -18,7 +18,7 @@ function SingleBlogPage() {
   useEffect(() => {
     const fetchBlog = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/blogs/${id}`);
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/blogs/${id}`);
         console.log(res.data);
         
         setBlog(res.data);
@@ -37,7 +37,7 @@ function SingleBlogPage() {
     if (!confirm) return;
 
     try {
-      await axios.delete(`http://localhost:5000/api/blogs/${id}`, {
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/blogs/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -74,7 +74,7 @@ function SingleBlogPage() {
       <div className="w-full  bg-white  p-6">
         {blog.image && (
           <img
-            src={`http://localhost:5000/${blog.image}`}
+            src={`${import.meta.env.VITE_API_URL}/${blog.image}`}
             alt={blog.title}
             className="w-full h-80 object-cover rounded mb-4"
           />

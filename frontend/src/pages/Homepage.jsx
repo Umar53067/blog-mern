@@ -10,7 +10,7 @@ function Homepage() {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/blogs'); // Assume this endpoint fetches all blogs
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/blogs`); 
         console.log(res.data)
         setBlogs(res.data);
       } catch (err) {

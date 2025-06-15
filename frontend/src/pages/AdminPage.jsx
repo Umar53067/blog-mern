@@ -15,7 +15,7 @@ function AdminPage() {
   // Fetch all users
   const fetchUsers = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/users'); // Ensure your backend proxy or baseURL is set up
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/users`); // Ensure your backend proxy or baseURL is set up
       console.log("Upcoming data checking",res.data)
       setUsers(res.data);
     } catch (err) {
@@ -35,7 +35,7 @@ function AdminPage() {
     setError('');
     setSuccess('');
     try {
-      await axios.post('http://localhost:5000/api/auth/signup', newUser);
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/signup`, newUser);
       setSuccess('User added successfully');
       setNewUser({ username: '', email: '', password: '' });
       fetchUsers();
@@ -47,7 +47,7 @@ function AdminPage() {
   // Handle deleting a user
   const handleDelete = async (userId) => {
     try {
-      await axios.delete(`http://localhost:5000/api/users/${userId}`);
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/users/${userId}`);
       fetchUsers();
     } catch (err) {
       console.error('Delete failed:', err);

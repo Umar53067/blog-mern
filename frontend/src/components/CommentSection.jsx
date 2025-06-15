@@ -14,7 +14,7 @@ function CommentSection({ blogId }) {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/comments/${blogId}`);
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/comments/${blogId}`);
         setComments(res.data);
       } catch (err) {
         console.error('Error fetching comments:', err);
@@ -32,7 +32,7 @@ function CommentSection({ blogId }) {
 
     try {
       const res = await axios.post(
-        `http://localhost:5000/api/comments`,
+        `${import.meta.env.VITE_API_URL}/api/comments`,
         {
           content: newComment,
           blogId: blogId,
